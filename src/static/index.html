@@ -1,15 +1,39 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-  </head>
-  <body>
-    <h1>Coding test</h1>
-    <p>This HTML page serves as the entry point for your UI. Feel free to modify it however you need.</p>
-    <h2>Notes</h2>
-    <ul>
-      <li>The API is available under <a href="http://localhost:4000/api"><code>http://localhost:4000/api</code></a></li>
-      <li>Static files are available under <a href="http://localhost:4000/static"><code>http://localhost:4000/static</code></a></li>
-    </ul>
-  </body>
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="./static/css/styles.css">
+</head>
+
+<body>
+  <header>Logo</header>
+  <div class="view-selector">
+    <div class="exams-selector">Exams</div>
+    <div class="students-selector">Students</div>
+  </div>
+  <div class="table-container">
+
+    <table id="all-exams-table">
+      <p>All Exams</p>
+      <tr id="all-exams-column-labels">
+        <th>Exam ID</th>
+        <th>Avg Exam Grade</th>
+        <th>Students</th>
+      </tr>
+    </table>
+
+    <table id="single-exam-table">
+      <p id="exam-number"></p>
+      <tr id="single-exam-column-labels">
+        <th>Student Name</th>
+        <th>Grade</th>
+        <th>Rank</th>
+      </tr>
+    </table>
+
+  </div>
+</body>
+<script src="./static/script.js"></script>
+
 </html>

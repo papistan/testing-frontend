@@ -8,7 +8,8 @@
     "test:watch": "./node_modules/.bin/mocha --watch --require babel-core/register ./**/*.spec.js",
     "start": "./node_modules/.bin/nodemon ./src/index.js",
     "start:debug": "DEBUG=* yarn start",
-    "postinstall": "cd node_modules && ln -sF ../src/lib . && ln -sF ../src/api ."
+    "postinstall": "cd node_modules && ln -sF ../src/lib . && ln -sF ../src/api .",
+    "scss": "node-sass --watch ./src/static/scss -o ./src/static/css"
   },
   "engines": {
     "node": "^9.0.0",
@@ -23,6 +24,7 @@
   },
   "author": "",
   "dependencies": {
+    "axios": "^0.18.0",
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-es2016": "^6.22.0",
     "babel-preset-es2017": "^6.22.0",
@@ -32,7 +34,8 @@
     "eventsource": "^0.2.1",
     "express": "^4.14.0",
     "faker": "^3.1.0",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "node-sass": "^4.9.2"
   },
   "devDependencies": {
     "babel-cli": "^6.22.2",
