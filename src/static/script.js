@@ -7,6 +7,7 @@ const SingleExamTableContainer = document.getElementById(
   "single-exam-table-container"
 );
 const ExamNumber = document.getElementById("exam-number");
+const ExamAverage = document.getElementById("exam-average");
 
 const FetchData = async url => {
   try {
@@ -84,11 +85,21 @@ const rankStudents = students => {
   return studentRankingReference;
 };
 
+const examAverage = allStudents => {
+  let sum = allStudents.reduce((total, num) => {
+    return total + num.score;
+  }, 0);
+  let average = sum / allStudents.length;
+  return Math.round(average * 100);
+};
+
 const AppendStudents = examId => {
   FetchData(`/api/v1/exams/${examId}`)
     .then(students => {
       let allStudents = students.results;
       let studentRankingReference = rankStudents(allStudents);
+      let average = examAverage(allStudents);
+      ExamAverage.innerHTML = `Average: ${average}%`;
       StudentRowsCreator(allStudents, studentRankingReference);
     })
     .catch(error => {

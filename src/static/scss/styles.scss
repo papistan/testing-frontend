@@ -49,16 +49,21 @@ header {
     p {
       font-size: 2em;
     }
+    #exam-average {
+      font-size: 1em;
+    }
   }
 }
 
 #single-exam-table-container {
+  display: none;
   flex-direction: column;
 }
 
 .exams-selector {
   background-color: rgb(238, 237, 237);
-  min-height: 50vh;
+  height: 50vh;
+  max-height: 50vh;
   border-right: 2px solid lightgray;
   border-bottom: 2px solid lightgray;
   display: flex;
@@ -69,6 +74,7 @@ header {
 
 .students-selector {
   flex: 1;
+  height: 50vh;
   max-height: 50vh;
   border-right: 2px solid lightgray;
   border-bottom: 2px solid lightgray;
