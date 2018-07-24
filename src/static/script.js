@@ -8,17 +8,6 @@ const SingleExamTableContainer = document.getElementById(
 );
 const ExamNumber = document.getElementById("exam-number");
 
-const ExamDetails = e => {
-  let id = e.target.parentElement.id;
-  let examNum = e.target.parentElement.firstChild.innerHTML;
-  AllExamsTableContainer.style.display = "none";
-  SingleExamTableContainer.style.display = "flex";
-  ExamNumber.innerHTML = `${examNum}`;
-  AppendStudents(id);
-};
-
-AllExamsTable.addEventListener("click", ExamDetails);
-
 const FetchData = async url => {
   try {
     const response = await fetch(url);
@@ -56,6 +45,17 @@ const AppendExams = () => {
 };
 
 AppendExams();
+
+const ExamDetails = e => {
+  let id = e.target.parentElement.id;
+  let examNum = e.target.parentElement.firstChild.innerHTML;
+  AllExamsTableContainer.style.display = "none";
+  SingleExamTableContainer.style.display = "flex";
+  ExamNumber.innerHTML = `${examNum}`;
+  AppendStudents(id);
+};
+
+AllExamsTable.addEventListener("click", ExamDetails);
 
 // Exam Student Logic
 

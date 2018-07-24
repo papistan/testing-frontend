@@ -1,3 +1,125 @@
-body {
-  color: red;
+html {
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+ul {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  color: rgb(124, 124, 124);
+  font-weight: normal;
+}
+tbody {
+  width: 100%;
+}
+
+header {
+  padding: 10px;
+  height: 7vh;
+  border-bottom: solid;
+}
+
+.main-container {
+  display: flex;
+
+  .view-selector {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .table-container {
+    flex: 7;
+    padding: 20px;
+    p {
+      font-size: 2em;
+    }
+  }
+}
+
+.exams-selector {
+  background-color: rgb(238, 237, 237);
+  min-height: 50vh;
+  border-right: solid;
+  border-bottom: solid;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.students-selector {
+  flex: 1;
+  max-height: 50vh;
+  border-right: solid;
+  border-bottom: solid;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.circle {
+  background-color: rgb(214, 213, 213);
+  height: 6vh;
+  width: 6vh;
+  border-radius: 50%;
+  margin-bottom: 3vh;
+}
+
+.tables {
+  border: solid;
+  margin-top: 2vh;
+  width: 100%;
+  display: flex;
+  tr {
+    display: flex;
+    th {
+      height: 7vh;
+      flex: 1;
+      text-align: start;
+      padding-left: 5vw;
+      border-bottom: solid;
+      padding-top: 2vh;
+    }
+    td {
+      height: 5vh;
+      flex: 1;
+      margin: 0%;
+      border-spacing: 0px;
+      padding-left: 5vw;
+      padding-top: 1vh;
+      border-bottom: solid;
+    }
+  }
+  td:nth-child(2) {
+    border-left: solid;
+  }
+  td:nth-child(3) {
+    border-left: solid;
+  }
+  tr:hover {
+    td {
+      background-color: darkgray;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+  }
 }

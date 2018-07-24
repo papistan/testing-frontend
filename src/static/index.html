@@ -8,33 +8,37 @@
 
 <body>
   <header>Logo</header>
-  <div class="view-selector">
-    <div class="exams-selector">Exams</div>
-    <div class="students-selector">Students</div>
-  </div>
-  <div class="table-container">
-    <div id="all-exams-table-container">
-      <p>All Exams</p>
-      <table id="all-exams-table">
-        <tr id="all-exams-column-labels">
-          <th>Exam ID</th>
-          <th>Avg Exam Grade</th>
-          <th>Students</th>
-        </tr>
-      </table>
+  <div class="main-container">
+    <div class="view-selector">
+      <div class="exams-selector">
+        <div class="circle"></div>Exams</div>
+      <div class="students-selector">
+        <div class="circle"></div>Students</div>
     </div>
-    <div id="single-exam-table-container">
-      <p id="exam-number"></p>
-      <table id="single-exam-table">
-        <tr id="single-exam-column-labels">
-          <th>Student Name</th>
-          <th>Grade</th>
-          <th>Rank</th>
-        </tr>
-      </table>
-    </div>
+    <div class="table-container">
+      <div id="all-exams-table-container">
+        <p>All Exams</p>
+        <table id="all-exams-table" class="tables">
+          <tr id="all-exams-column-labels">
+            <th>Exam ID</th>
+            <th>Avg Exam Grade</th>
+            <th>Students</th>
+          </tr>
+        </table>
+      </div>
+      <div id="single-exam-table-container">
+        <p id="exam-number"></p>
+        <table id="single-exam-table" class="tables">
+          <tr id="single-exam-column-labels">
+            <th>Student Name</th>
+            <th>Grade</th>
+            <th>Rank</th>
+          </tr>
+        </table>
+      </div>
 
 
+    </div>
   </div>
 </body>
 <script src="./static/script.js"></script>
