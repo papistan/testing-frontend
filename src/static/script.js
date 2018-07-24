@@ -1,11 +1,19 @@
 const AllExamsTable = document.getElementById("all-exams-table");
+const AllExamsTableContainer = document.getElementById(
+  "all-exams-table-container"
+);
 const SingleExamTable = document.getElementById("single-exam-table");
+const SingleExamTableContainer = document.getElementById(
+  "single-exam-table-container"
+);
 const ExamNumber = document.getElementById("exam-number");
 
 const ExamDetails = e => {
   let id = e.target.parentElement.id;
-  AllExamsTable.style.display = "none";
-  SingleExamTable.style.display = "flex";
+  let examNum = e.target.parentElement.firstChild.innerHTML;
+  AllExamsTableContainer.style.display = "none";
+  SingleExamTableContainer.style.display = "flex";
+  ExamNumber.innerHTML = `${examNum}`;
   AppendStudents(id);
 };
 
@@ -22,24 +30,25 @@ const FetchData = async url => {
 };
 
 // All Exam Logic
-const ExamRowCreator = (exam, counter) => {
-  let row = AllExamsTable.insertRow(-1);
-  row.setAttribute("id", `${exam.id}`);
-  let cell1 = row.insertCell(0);
-  let cell2 = row.insertCell(1);
-  let cell3 = row.insertCell(2);
-  cell1.innerHTML = `Exam ${counter}`;
-  let examGrade = Math.round(exam.average * 100);
-  cell2.innerHTML = `${examGrade}%`;
-  cell3.innerHTML = `${exam.studentCount}`;
+const ExamRowsCreator = allExams => {
+  allExams.forEach((exam, i) => {
+    let row = AllExamsTable.insertRow(-1);
+    row.setAttribute("id", `${exam.id}`);
+    let cell1 = row.insertCell(0);
+    let cell2 = row.insertCell(1);
+    let cell3 = row.insertCell(2);
+    cell1.innerHTML = `Exam ${i + 1}`;
+    let examGrade = Math.round(exam.average * 100);
+    cell2.innerHTML = `${examGrade}%`;
+    cell3.innerHTML = `${exam.studentCount}`;
+  });
 };
 
 const AppendExams = () => {
   FetchData("/api/v1/exams")
     .then(exams => {
-      exams.exams.forEach((exam, i) => {
-        ExamRowCreator(exam, i + 1);
-      });
+      let allExams = exams.exams;
+      ExamRowsCreator(allExams);
     })
     .catch(error => {
       console.log(error);
@@ -50,16 +59,19 @@ AppendExams();
 
 // Exam Student Logic
 
-const StudentRowCreator = (student, counter, rank) => {
-  let row = SingleExamTable.insertRow(-1);
-  row.setAttribute("id", `${student.id}`);
-  let cell1 = row.insertCell(0);
-  let cell2 = row.insertCell(1);
-  let cell3 = row.insertCell(2);
-  cell1.innerHTML = `Student ${counter}`;
-  let studentGrade = Math.round(student.score * 100);
-  cell2.innerHTML = `${studentGrade}%`;
-  cell3.innerHTML = `${rank}`;
+const StudentRowsCreator = (allStudents, studentRankingReference) => {
+  allStudents.forEach((student, i) => {
+    let rank = studentRankingReference[student.studentId];
+    let row = SingleExamTable.insertRow(-1);
+    row.setAttribute("id", `${student.id}`);
+    let cell1 = row.insertCell(0);
+    let cell2 = row.insertCell(1);
+    let cell3 = row.insertCell(2);
+    cell1.innerHTML = `Student ${i + 1}`;
+    let studentGrade = Math.round(student.score * 100);
+    cell2.innerHTML = `${studentGrade}%`;
+    cell3.innerHTML = `${rank}`;
+  });
 };
 
 const rankStudents = students => {
@@ -75,12 +87,9 @@ const rankStudents = students => {
 const AppendStudents = examId => {
   FetchData(`/api/v1/exams/${examId}`)
     .then(students => {
-      let studentRankingReference = rankStudents(students.results);
-
-      students.results.forEach((student, i) => {
-        let rank = studentRankingReference[student.studentId];
-        StudentRowCreator(student, i + 1, rank);
-      });
+      let allStudents = students.results;
+      let studentRankingReference = rankStudents(allStudents);
+      StudentRowsCreator(allStudents, studentRankingReference);
     })
     .catch(error => {
       console.log(error);
