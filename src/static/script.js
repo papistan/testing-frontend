@@ -50,7 +50,7 @@ AppendExams();
 
 // Exam Student Logic
 
-const StudentRowCreator = (student, counter, studentRanking) => {
+const StudentRowCreator = (student, counter, rank) => {
   let row = SingleExamTable.insertRow(-1);
   row.setAttribute("id", `${student.id}`);
   let cell1 = row.insertCell(0);
@@ -59,28 +59,28 @@ const StudentRowCreator = (student, counter, studentRanking) => {
   cell1.innerHTML = `Student ${counter}`;
   let studentGrade = Math.round(student.score * 100);
   cell2.innerHTML = `${studentGrade}%`;
-  cell3.innerHTML = `${studentRanking[student.studentId]}`;
+  cell3.innerHTML = `${rank}`;
 };
 
 const rankStudents = students => {
-  let studentRanking = {};
-  let rankedStudents = [...students].sort((a, b) => a.score - b.score);
-  rankedStudents.forEach((student, i) => {
-    studentRanking[student.studentId] = i + 1;
+  let studentRankingReference = {};
+  let studentsSortedByScore = [...students].sort((a, b) => b.score - a.score);
+  studentsSortedByScore.forEach((student, i) => {
+    studentRankingReference[student.studentId] = i + 1;
   });
 
-  return studentRanking;
+  return studentRankingReference;
 };
 
 const AppendStudents = examId => {
   FetchData(`/api/v1/exams/${examId}`)
     .then(students => {
-      let studentRanking = rankStudents(students.results);
-      
-      students.results.forEach((student, i) => {
-        StudentRowCreator(student, i + 1, studentRanking);
-      });
+      let studentRankingReference = rankStudents(students.results);
 
+      students.results.forEach((student, i) => {
+        let rank = studentRankingReference[student.studentId];
+        StudentRowCreator(student, i + 1, rank);
+      });
     })
     .catch(error => {
       console.log(error);
