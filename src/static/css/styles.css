@@ -29,7 +29,7 @@ tbody {
 header {
   padding: 10px;
   height: 7vh;
-  border-bottom: solid; }
+  border-bottom: 2px solid lightgray; }
 
 .main-container {
   display: flex; }
@@ -43,11 +43,14 @@ header {
     .main-container .table-container p {
       font-size: 2em; }
 
+#single-exam-table-container {
+  flex-direction: column; }
+
 .exams-selector {
   background-color: #eeeded;
   min-height: 50vh;
-  border-right: solid;
-  border-bottom: solid;
+  border-right: 2px solid lightgray;
+  border-bottom: 2px solid lightgray;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -56,8 +59,8 @@ header {
 .students-selector {
   flex: 1;
   max-height: 50vh;
-  border-right: solid;
-  border-bottom: solid;
+  border-right: 2px solid lightgray;
+  border-bottom: 2px solid lightgray;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -71,7 +74,7 @@ header {
   margin-bottom: 3vh; }
 
 .tables {
-  border: solid;
+  border: 2px solid lightgray;
   margin-top: 2vh;
   width: 100%;
   display: flex; }
@@ -82,8 +85,9 @@ header {
       flex: 1;
       text-align: start;
       padding-left: 5vw;
-      border-bottom: solid;
-      padding-top: 2vh; }
+      border-bottom: 2px solid lightgray;
+      padding-top: 2vh;
+      font-weight: inherit; }
     .tables tr td {
       height: 5vh;
       flex: 1;
@@ -91,11 +95,11 @@ header {
       border-spacing: 0px;
       padding-left: 5vw;
       padding-top: 1vh;
-      border-bottom: solid; }
+      border-bottom: 2px solid lightgray; }
   .tables td:nth-child(2) {
-    border-left: solid; }
+    border-left: 2px solid lightgray; }
   .tables td:nth-child(3) {
-    border-left: solid; }
+    border-left: 2px solid lightgray; }
   .tables tr:hover td {
     background-color: darkgray;
     color: white;
