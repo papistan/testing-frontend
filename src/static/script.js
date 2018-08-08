@@ -9,6 +9,10 @@ const SingleExamTableContainer = document.getElementById(
 const ExamNumber = document.getElementById("exam-number");
 const ExamAverage = document.getElementById("exam-average");
 
+const studentSearchForm = document.getElementById("search-name");
+
+studentSearchForm.addEventListener("change", searchForStudent);
+
 const FetchData = async url => {
   try {
     const response = await fetch(url);
@@ -54,35 +58,36 @@ const ExamDetails = e => {
   SingleExamTableContainer.style.display = "flex";
   ExamNumber.innerHTML = `${examNum}`;
   AppendStudents(id);
+
 };
 
 AllExamsTable.addEventListener("click", ExamDetails);
 
 // Exam Student Logic
 
-const StudentRowsCreator = (allStudents, studentRankingReference) => {
-  allStudents.forEach((student, i) => {
-    let rank = studentRankingReference[student.studentId];
+const StudentRowsCreator = studentRankingReference => {
+  Object.keys(studentRankingReference).forEach((student, i) => {
+    // let rank = studentRankingReference[studentRankingReference[student].studentId];
     let row = SingleExamTable.insertRow(-1);
     row.setAttribute("id", `${student.id}`);
     let cell1 = row.insertCell(0);
     let cell2 = row.insertCell(1);
     let cell3 = row.insertCell(2);
-    cell1.innerHTML = `Student ${i + 1}`;
-    let studentGrade = Math.round(student.score * 100);
+    cell1.innerHTML = `${studentRankingReference[student].studentId}`;
+    let studentGrade = Math.round(studentRankingReference[student].score * 100);
     cell2.innerHTML = `${studentGrade}%`;
-    cell3.innerHTML = `${rank}`;
+    cell3.innerHTML = `${i + 1}`;
   });
 };
 
 const rankStudents = students => {
-  let studentRankingReference = {};
-  let studentsSortedByScore = [...students].sort((a, b) => b.score - a.score);
-  studentsSortedByScore.forEach((student, i) => {
-    studentRankingReference[student.studentId] = i + 1;
-  });
+  // let studentRankingReference = {};
+  return [...students].sort((a, b) => b.score - a.score);
+  // studentsSortedByScore.forEach((student, i) => {
+  //   studentRankingReference[student.studentId] = {rank: i + 1, score: student.score}
+  // });
 
-  return studentRankingReference;
+  // return studentRankingReference;
 };
 
 const examAverage = allStudents => {
@@ -93,16 +98,28 @@ const examAverage = allStudents => {
   return Math.round(average * 100);
 };
 
+let allStudents;
+
 const AppendStudents = examId => {
   FetchData(`/api/v1/exams/${examId}`)
     .then(students => {
-      let allStudents = students.results;
+      allStudents = students.results;
       let studentRankingReference = rankStudents(allStudents);
       let average = examAverage(allStudents);
       ExamAverage.innerHTML = `Average: ${average}%`;
-      StudentRowsCreator(allStudents, studentRankingReference);
+      StudentRowsCreator(studentRankingReference);
     })
     .catch(error => {
       console.log(error);
     });
 };
+
+function searchForStudent(e) {
+  let studentTerm = e.target.value;
+  let foundStudent = allStudents.filter(student =>
+    student.studentId.toLowerCase().startsWith(studentTerm.toLowerCase())
+  );
+  if (foundStudent != undefined) {
+    console.log(foundStudent);
+  }
+}
